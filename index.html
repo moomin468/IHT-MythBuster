@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MythBuster: Inheritance Tax Edition</title>
+    <script>
+        function showResponse(option) {
+            let response = "";
+            
+            if (option === "1") {
+                response = "<b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
+                           "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
+            } 
+            else if (option === "2") {
+                response = "<b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
+                           "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
+            } 
+            else if (option === "3") {
+                response = "<b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
+                           "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
+            }
+
+            document.getElementById("response").innerHTML = response + "<br><br><button onclick='resetChat()'>Back to Myths</button>";
+            document.getElementById("options").style.display = "none"; // Hide buttons after selection
+        }
+
+        function resetChat() {
+            document.getElementById("response").innerHTML = "";
+            document.getElementById("options").style.display = "block"; // Show buttons again
+        }
+    </script>
+</head>
+<body>
+    <h2>MythBuster: Inheritance Tax Edition</h2>
+    <p>Select a myth to see the truth:</p>
+    
+    <div id="options">
+        <button onclick="showResponse('1')">Myth: I won’t pay any IHT on my business or company.</button>
+        <button onclick="showResponse('2')">Myth: Surviving the “seven-year clock” is all I have to worry about.</button>
+        <button onclick="showResponse('3')">Myth: I have to wait seven years for a gift to be outside my estate for IHT.</button>
+    </div>
+
+    <p id="response"></p>
+</body>
+</html>
