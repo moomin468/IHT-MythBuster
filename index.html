@@ -16,11 +16,11 @@
         }
         .chat-container {
             width: 100%;
-            max-width: 800px; /* Increased width */
+            max-width: 700px; /* Adjusted width */
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
-            padding: 15px; /* Reduced padding */
+            padding: 15px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -29,7 +29,7 @@
             font-size: 18px;
             font-weight: bold;
             text-align: center;
-            padding-bottom: 8px;
+            padding-bottom: 5px; /* Reduced spacing */
             border-bottom: 2px solid #ddd;
         }
         .end-session {
@@ -45,18 +45,16 @@
             font-size: 14px;
         }
         .chat-box {
-            height: 550px; /* Ensures content fits */
+            height: 480px; /* Adjusted height to fit everything */
             overflow-y: auto;
-            padding-bottom: 8px; /* Reduced bottom spacing */
-            margin-top: 5px; /* Reduced top margin */
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            padding-bottom: 10px;
+            gap: 5px; /* Adds slight space between messages */
         }
         .message {
             padding: 10px; /* Reduced padding */
             border-radius: 8px;
-            margin-bottom: 5px; /* Reduced space between messages */
             max-width: 90%;
             line-height: 1.5;
             cursor: pointer;
@@ -79,7 +77,7 @@
             border: 1px solid #d1d1d1;
             transition: background 0.3s;
             padding: 8px;
-            margin-bottom: 5px; /* Less space between myths */
+            margin-bottom: 4px; /* Reduced spacing between myths */
         }
         .selectable:hover {
             background-color: #d1d1d1;
