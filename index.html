@@ -36,6 +36,8 @@
             max-width: 80%;
             line-height: 1.5;
             cursor: pointer;
+            display: flex;
+            align-items: center;
         }
         .user-message {
             background-color: #007bff;
@@ -50,6 +52,11 @@
             align-self: flex-start;
             text-align: left;
         }
+        .bot-avatar {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
         .selectable {
             background-color: #e5e5ea;
             border: 1px solid #d1d1d1;
@@ -58,14 +65,30 @@
         .selectable:hover {
             background-color: #d1d1d1;
         }
+        .typing-indicator {
+            font-style: italic;
+            color: gray;
+            animation: blink 1.2s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
     </style>
 </head>
 <body>
 
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">👋 Hi there! I’m <b>MythBuster</b>, your friendly inheritance tax fact-checker. Let's bust some myths together! 💡</div>
-            <div class="bot-message message">I’m here to help clear up any misconceptions you might have. Choose a myth below, and I’ll tell you the facts.</div>
+            <div class="bot-message message">
+                <img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot">
+                Hi there! I’m <b>MythBuster</b>, your friendly inheritance tax fact-checker. Let's bust some myths together! 💡
+            </div>
+            <div class="bot-message message">
+                <img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot">
+                I’m here to help clear up any misconceptions you might have. Choose a myth below, and I’ll tell you the facts.
+            </div>
             <div id="options"></div>
         </div>
     </div>
@@ -84,7 +107,7 @@
             myths.forEach((myth, index) => {
                 let mythOption = document.createElement("div");
                 mythOption.className = "bot-message message selectable";
-                mythOption.innerHTML = myth;
+                mythOption.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> ${myth}`;
                 mythOption.onclick = function() { selectMyth(index + 1, myth); };
                 optionsDiv.appendChild(mythOption);
             });
@@ -100,36 +123,45 @@
             chatBox.appendChild(userMessage);
 
             let response = "";
+            let typingTime = 2000; // Default 2 seconds
+
             if (option === 1) {
                 response = "✅ <b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
                            "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
+                typingTime = 2000;
             } 
             else if (option === 2) {
                 response = "✅ <b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
                            "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
+                typingTime = 2500;
             } 
             else if (option === 3) {
                 response = "✅ <b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
                            "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
+                typingTime = 3000;
             }
 
-            // Add bot response (fact)
-            let botMessage = document.createElement("div");
-            botMessage.className = "bot-message message";
-            botMessage.innerHTML = response;
-            chatBox.appendChild(botMessage);
-
-            // Add friendly bot message before showing myths again
-            let botFollowUp = document.createElement("div");
-            botFollowUp.className = "bot-message message";
-            botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
-            chatBox.appendChild(botFollowUp);
+            // Add typing indicator before showing fact
+            let typingIndicator = document.createElement("div");
+            typingIndicator.className = "bot-message message typing-indicator";
+            typingIndicator.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> MythBuster is typing...`;
+            chatBox.appendChild(typingIndicator);
 
             // Scroll chat to latest message
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Show myths again for another selection
-            setTimeout(showMyths, 1000);
+            setTimeout(() => {
+                typingIndicator.remove(); // Remove typing indicator
+
+                // Add bot response (fact)
+                let botMessage = document.createElement("div");
+                botMessage.className = "bot-message message";
+                botMessage.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> ${response}`;
+                chatBox.appendChild(botMessage);
+
+                // Show myths again
+                setTimeout(showMyths, 1000);
+            }, typingTime);
         }
 
         // Show myths initially
