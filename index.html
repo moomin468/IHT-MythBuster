@@ -52,6 +52,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 10px;
         }
         button {
             padding: 10px;
@@ -72,7 +73,7 @@
 
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">Select a myth to see the truth:</div>
+            <div class="bot-message message">Hi, I am <b>MythBuster!</b> Please select one of the following myths:</div>
         </div>
         
         <div class="buttons-container" id="buttons-container">
@@ -85,33 +86,43 @@
     <script>
         function selectMyth(option) {
             let response = "";
-            
+            let selectedMyth = "";
+
             if (option === 1) {
+                selectedMyth = "Myth: I won’t pay any IHT on my business or company.";
                 response = "<b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
                            "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
             } 
             else if (option === 2) {
+                selectedMyth = "Myth: Surviving the 'seven-year clock' is all I have to worry about.";
                 response = "<b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
                            "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
             } 
             else if (option === 3) {
+                selectedMyth = "Myth: I have to wait seven years for a gift to be outside my estate for IHT.";
                 response = "<b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
                            "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
             }
 
             let chatBox = document.getElementById("chat-box");
 
-            // Add user message
+            // Add user message (selected myth)
             let userMessage = document.createElement("div");
             userMessage.className = "user-message message";
-            userMessage.innerHTML = document.querySelector(`button:nth-child(${option})`).textContent;
+            userMessage.innerHTML = selectedMyth;
             chatBox.appendChild(userMessage);
 
-            // Add bot response
+            // Add bot response (fact)
             let botMessage = document.createElement("div");
             botMessage.className = "bot-message message";
             botMessage.innerHTML = response;
             chatBox.appendChild(botMessage);
+
+            // Add myth selection prompt again
+            let newPrompt = document.createElement("div");
+            newPrompt.className = "bot-message message";
+            newPrompt.innerHTML = "Would you like to check another myth? Please select:";
+            chatBox.appendChild(newPrompt);
 
             // Scroll chat to the latest message
             chatBox.scrollTop = chatBox.scrollHeight;
