@@ -145,20 +145,16 @@
             if (option === 1) {
                 response = "✅ <b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
                            "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
-                typingTime = 2000;
             } 
             else if (option === 2) {
                 response = "✅ <b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
                            "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
-                typingTime = 2500;
             } 
             else if (option === 3) {
                 response = "✅ <b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
                            "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
-                typingTime = 3000;
             }
 
-            // Add typing indicator before showing fact
             let typingIndicator = document.createElement("div");
             typingIndicator.className = "bot-message message typing-indicator";
             typingIndicator.innerHTML = "MythBuster is typing...";
@@ -174,14 +170,14 @@
                 botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
-                setTimeout(() => {
-                    let botFollowUp = document.createElement("div");
-                    botFollowUp.className = "bot-message message";
-                    botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
-                    chatBox.appendChild(botFollowUp);
+                // FOLLOW-UP MESSAGE & MYTHS APPEAR IMMEDIATELY AFTER FACT
+                let botFollowUp = document.createElement("div");
+                botFollowUp.className = "bot-message message";
+                botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
+                chatBox.appendChild(botFollowUp);
 
-                    showMyths();
-                }, 1000);
+                showMyths();
+
             }, typingTime);
         }
 
@@ -189,7 +185,7 @@
             let chatBox = document.getElementById("chat-box");
             setTimeout(() => {
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 100); // Small delay to ensure smooth scrolling
+            }, 100);
         }
 
         function resetChat() {
