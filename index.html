@@ -64,7 +64,8 @@
 
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">Hi, I am <b>MythBuster!</b> Please select one of the following myths:</div>
+            <div class="bot-message message">👋 Hi there! I’m <b>MythBuster</b>, your friendly inheritance tax fact-checker. Let's bust some myths together! 💡</div>
+            <div class="bot-message message">I’m here to help clear up any misconceptions you might have. Choose a myth below, and I’ll tell you the facts.</div>
             <div id="options"></div>
         </div>
     </div>
@@ -75,9 +76,9 @@
             optionsDiv.innerHTML = ""; // Clear previous myths
 
             let myths = [
-                "Myth: I won’t pay any IHT on my business or company.",
-                "Myth: Surviving the “seven-year clock” is all I have to worry about.",
-                "Myth: I have to wait seven years for a gift to be outside my estate for IHT."
+                "📌 Myth: I won’t pay any IHT on my business or company.",
+                "📌 Myth: Surviving the 'seven-year clock' is all I have to worry about.",
+                "📌 Myth: I have to wait seven years for a gift to be outside my estate for IHT."
             ];
 
             myths.forEach((myth, index) => {
@@ -100,15 +101,15 @@
 
             let response = "";
             if (option === 1) {
-                response = "<b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
+                response = "✅ <b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
                            "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
             } 
             else if (option === 2) {
-                response = "<b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
+                response = "✅ <b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
                            "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
             } 
             else if (option === 3) {
-                response = "<b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
+                response = "✅ <b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
                            "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
             }
 
@@ -117,6 +118,12 @@
             botMessage.className = "bot-message message";
             botMessage.innerHTML = response;
             chatBox.appendChild(botMessage);
+
+            // Add friendly bot message before showing myths again
+            let botFollowUp = document.createElement("div");
+            botFollowUp.className = "bot-message message";
+            botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
+            chatBox.appendChild(botFollowUp);
 
             // Scroll chat to latest message
             chatBox.scrollTop = chatBox.scrollHeight;
