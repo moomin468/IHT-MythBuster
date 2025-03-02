@@ -59,8 +59,6 @@
             max-width: 90%;
             line-height: 1.6;
             cursor: pointer;
-            display: flex;
-            align-items: center;
         }
         .user-message {
             background-color: #007bff;
@@ -68,19 +66,12 @@
             align-self: flex-end;
             text-align: right;
             cursor: default;
-            border-radius: 10px 10px 0 10px;
         }
         .bot-message {
             background-color: #e5e5ea;
             color: black;
             align-self: flex-start;
             text-align: left;
-            border-radius: 10px 10px 10px 0;
-        }
-        .bot-message img {
-            width: 24px; /* Emoji size */
-            height: 24px;
-            margin-right: 8px;
         }
         .selectable {
             background-color: #e5e5ea;
@@ -109,17 +100,11 @@
 <body>
 
     <div class="chat-container">
-        <div class="chat-header">💬 Inheritance Tax MythBuster</div>
+        <div class="chat-header">Inheritance Tax MythBuster</div>
         <button class="end-session" onclick="resetChat()">End Session</button>
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">
-                <img src="https://emojis.sh/emoji/ai-chatbot-XuqHDEZl9O" alt="Chatbot">
-                Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.
-            </div>
-            <div class="bot-message message">
-                <img src="https://emojis.sh/emoji/ai-chatbot-XuqHDEZl9O" alt="Chatbot">
-                Please select a myth from the options below, and I'll provide you with accurate information.
-            </div>
+            <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
+            <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>
             <div id="options"></div>
         </div>
     </div>
@@ -140,7 +125,7 @@
             myths.forEach((myth, index) => {
                 let mythOption = document.createElement("div");
                 mythOption.className = "bot-message message selectable";
-                mythOption.innerHTML = `<img src="https://emojis.sh/emoji/ai-chatbot-XuqHDEZl9O" alt="Chatbot"> ${myth}`;
+                mythOption.innerHTML = myth;
                 mythOption.onclick = function() { selectMyth(index + 1, myth); };
                 optionsDiv.appendChild(mythOption);
             });
@@ -185,16 +170,30 @@
 
                 let botMessage = document.createElement("div");
                 botMessage.className = "bot-message message";
-                botMessage.innerHTML = `<img src="https://emojis.sh/emoji/ai-chatbot-XuqHDEZl9O" alt="Chatbot"> ${response}`;
+                botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
                 let botFollowUp = document.createElement("div");
                 botFollowUp.className = "bot-message message";
-                botFollowUp.innerHTML = `<img src="https://emojis.sh/emoji/ai-chatbot-XuqHDEZl9O" alt="Chatbot"> 💭 Got another myth you'd like to check? Choose from the options below!`;
+                botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
                 chatBox.appendChild(botFollowUp);
 
                 showMyths();
             }, typingTime);
+        }
+
+        function autoScroll() {
+            let chatBox = document.getElementById("chat-box");
+            setTimeout(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100);
+        }
+
+        function resetChat() {
+            document.getElementById("chat-box").innerHTML = `
+                <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
+                <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>`;
+            showMyths();
         }
 
         showMyths();
