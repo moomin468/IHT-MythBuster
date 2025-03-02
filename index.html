@@ -15,8 +15,8 @@
             margin: 0;
         }
         .chat-container {
-            width: 95%;
-            max-width: 500px;
+            width: 100%;
+            max-width: 800px; /* Increased width */
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
@@ -26,7 +26,7 @@
             position: relative;
         }
         .chat-header {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
             padding-bottom: 10px;
@@ -45,17 +45,20 @@
             font-size: 14px;
         }
         .chat-box {
-            max-height: 450px;
+            height: 550px; /* Increased height */
             overflow-y: auto;
             padding-bottom: 10px;
             margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .message {
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
-            margin-bottom: 10px;
-            max-width: 80%;
-            line-height: 1.5;
+            margin-bottom: 15px;
+            max-width: 90%;
+            line-height: 1.6;
             cursor: pointer;
         }
         .user-message {
@@ -97,7 +100,7 @@
         <div class="chat-header">💬 Inheritance Tax MythBuster</div>
         <button class="end-session" onclick="resetChat()">End Session</button>
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">Welcome to the **Inheritance Tax MythBuster**. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
+            <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
             <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>
             <div id="options"></div>
         </div>
@@ -108,7 +111,7 @@
             let chatBox = document.getElementById("chat-box");
             let optionsDiv = document.createElement("div");
             optionsDiv.id = "options";
-            chatBox.appendChild(optionsDiv); // Append options at the right place
+            chatBox.appendChild(optionsDiv);
 
             let myths = [
                 "📌 Myth: I won’t pay any IHT on my business or company.",
@@ -137,20 +140,20 @@
             chatBox.appendChild(userMessage);
 
             let response = "";
-            let typingTime = 2000; // Default 2 seconds
+            let typingTime = 2000;
 
             if (option === 1) {
-                response = "✅ **Fact:** Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
+                response = "✅ <b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
                            "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
                 typingTime = 2000;
             } 
             else if (option === 2) {
-                response = "✅ **Fact:** Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
+                response = "✅ <b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
                            "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
                 typingTime = 2500;
             } 
             else if (option === 3) {
-                response = "✅ **Fact:** Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
+                response = "✅ <b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
                            "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
                 typingTime = 3000;
             }
@@ -164,15 +167,13 @@
             autoScroll();
 
             setTimeout(() => {
-                typingIndicator.remove(); // Remove typing indicator
+                typingIndicator.remove();
 
-                // Add bot response (fact)
                 let botMessage = document.createElement("div");
                 botMessage.className = "bot-message message";
                 botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
-                // Add follow-up message before showing myths again
                 setTimeout(() => {
                     let botFollowUp = document.createElement("div");
                     botFollowUp.className = "bot-message message";
@@ -186,17 +187,18 @@
 
         function autoScroll() {
             let chatBox = document.getElementById("chat-box");
-            chatBox.scrollTop = chatBox.scrollHeight;
+            setTimeout(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100); // Small delay to ensure smooth scrolling
         }
 
         function resetChat() {
             document.getElementById("chat-box").innerHTML = `
-                <div class="bot-message message">Welcome to the **Inheritance Tax MythBuster**. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
+                <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
                 <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>`;
             showMyths();
         }
 
-        // Show myths initially
         showMyths();
     </script>
 
