@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #fff5e6; /* Light orange background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,11 +16,11 @@
         }
         .chat-container {
             width: 100%;
-            max-width: 700px; /* Adjusted width */
+            max-width: 750px;
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -29,58 +29,59 @@
             font-size: 18px;
             font-weight: bold;
             text-align: center;
-            padding-bottom: 5px; /* Reduced spacing */
-            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff9900; /* Orange accent */
+            color: #d35400; /* Dark orange */
         }
         .end-session {
             position: absolute;
-            top: 8px;
+            top: 10px;
             right: 15px;
-            background-color: red;
+            background-color: #e74c3c;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 6px 12px;
             cursor: pointer;
             border-radius: 5px;
             font-size: 14px;
         }
         .chat-box {
-            height: 480px; /* Adjusted height to fit everything */
+            height: 500px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             padding-bottom: 10px;
-            gap: 5px; /* Adds slight space between messages */
+            gap: 10px;
         }
         .message {
-            padding: 10px; /* Reduced padding */
+            padding: 12px;
             border-radius: 8px;
             max-width: 90%;
-            line-height: 1.5;
+            line-height: 1.6;
             cursor: pointer;
         }
         .user-message {
-            background-color: #007bff;
+            background-color: #ff7700; /* Dark orange */
             color: white;
             align-self: flex-end;
             text-align: right;
             cursor: default;
         }
         .bot-message {
-            background-color: #e5e5ea;
-            color: black;
+            background-color: #ffe0b3; /* Light orange */
+            color: #7a3e00; /* Darker text for readability */
             align-self: flex-start;
             text-align: left;
         }
         .selectable {
-            background-color: #e5e5ea;
-            border: 1px solid #d1d1d1;
+            background-color: #ffd699;
+            border: 1px solid #ff9900;
             transition: background 0.3s;
-            padding: 8px;
-            margin-bottom: 4px; /* Reduced spacing between myths */
+            padding: 10px;
+            margin-bottom: 6px;
         }
         .selectable:hover {
-            background-color: #d1d1d1;
+            background-color: #ffb366;
         }
         .typing-indicator {
             font-style: italic;
@@ -97,7 +98,7 @@
 <body>
 
     <div class="chat-container">
-        <div class="chat-header">💬 Inheritance Tax MythBuster</div>
+        <div class="chat-header">🟠 Inheritance Tax MythBuster</div>
         <button class="end-session" onclick="resetChat()">End Session</button>
         <div class="chat-box" id="chat-box">
             <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
