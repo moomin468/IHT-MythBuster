@@ -36,8 +36,6 @@
             max-width: 80%;
             line-height: 1.5;
             cursor: pointer;
-            display: flex;
-            align-items: center;
         }
         .user-message {
             background-color: #007bff;
@@ -51,11 +49,6 @@
             color: black;
             align-self: flex-start;
             text-align: left;
-        }
-        .bot-avatar {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
         }
         .selectable {
             background-color: #e5e5ea;
@@ -81,22 +74,18 @@
 
     <div class="chat-container">
         <div class="chat-box" id="chat-box">
-            <div class="bot-message message">
-                <img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot">
-                Hi there! I’m <b>MythBuster</b>, your friendly inheritance tax fact-checker. Let's bust some myths together! 💡
-            </div>
-            <div class="bot-message message">
-                <img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot">
-                I’m here to help clear up any misconceptions you might have. Choose a myth below, and I’ll tell you the facts.
-            </div>
+            <div class="bot-message message">👋 Hi there! I’m <b>MythBuster</b>, your friendly inheritance tax fact-checker. Let's bust some myths together! 💡</div>
+            <div class="bot-message message">I’m here to help clear up any misconceptions you might have. Choose a myth below, and I’ll tell you the facts.</div>
             <div id="options"></div>
         </div>
     </div>
 
     <script>
         function showMyths() {
-            let optionsDiv = document.getElementById("options");
-            optionsDiv.innerHTML = ""; // Clear previous myths
+            let chatBox = document.getElementById("chat-box");
+            let optionsDiv = document.createElement("div");
+            optionsDiv.id = "options";
+            chatBox.appendChild(optionsDiv); // Append options at the right place
 
             let myths = [
                 "📌 Myth: I won’t pay any IHT on my business or company.",
@@ -107,7 +96,7 @@
             myths.forEach((myth, index) => {
                 let mythOption = document.createElement("div");
                 mythOption.className = "bot-message message selectable";
-                mythOption.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> ${myth}`;
+                mythOption.innerHTML = myth;
                 mythOption.onclick = function() { selectMyth(index + 1, myth); };
                 optionsDiv.appendChild(mythOption);
             });
@@ -144,7 +133,7 @@
             // Add typing indicator before showing fact
             let typingIndicator = document.createElement("div");
             typingIndicator.className = "bot-message message typing-indicator";
-            typingIndicator.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> MythBuster is typing...`;
+            typingIndicator.innerHTML = "MythBuster is typing...";
             chatBox.appendChild(typingIndicator);
 
             // Scroll chat to latest message
@@ -156,11 +145,19 @@
                 // Add bot response (fact)
                 let botMessage = document.createElement("div");
                 botMessage.className = "bot-message message";
-                botMessage.innerHTML = `<img src="https://i.imgur.com/4M7IWwP.png" class="bot-avatar" alt="bot"> ${response}`;
+                botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
-                // Show myths again
-                setTimeout(showMyths, 1000);
+                // Add follow-up message before showing myths again
+                setTimeout(() => {
+                    let botFollowUp = document.createElement("div");
+                    botFollowUp.className = "bot-message message";
+                    botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
+                    chatBox.appendChild(botFollowUp);
+
+                    // Show myths again
+                    setTimeout(showMyths, 1000);
+                }, 1000);
             }, typingTime);
         }
 
