@@ -20,21 +20,21 @@
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             display: flex;
             flex-direction: column;
             position: relative;
         }
         .chat-header {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #ddd;
         }
         .end-session {
             position: absolute;
-            top: 10px;
+            top: 8px;
             right: 15px;
             background-color: red;
             color: white;
@@ -45,20 +45,20 @@
             font-size: 14px;
         }
         .chat-box {
-            height: 550px; /* Increased height */
+            height: 550px; /* Ensures content fits */
             overflow-y: auto;
-            padding-bottom: 10px;
-            margin-top: 10px;
+            padding-bottom: 8px; /* Reduced bottom spacing */
+            margin-top: 5px; /* Reduced top margin */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 10px; /* Reduced padding */
+            border-radius: 8px;
+            margin-bottom: 5px; /* Reduced space between messages */
             max-width: 90%;
-            line-height: 1.6;
+            line-height: 1.5;
             cursor: pointer;
         }
         .user-message {
@@ -78,6 +78,8 @@
             background-color: #e5e5ea;
             border: 1px solid #d1d1d1;
             transition: background 0.3s;
+            padding: 8px;
+            margin-bottom: 5px; /* Less space between myths */
         }
         .selectable:hover {
             background-color: #d1d1d1;
@@ -170,14 +172,12 @@
                 botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
-                // FOLLOW-UP MESSAGE & MYTHS APPEAR IMMEDIATELY AFTER FACT
                 let botFollowUp = document.createElement("div");
                 botFollowUp.className = "bot-message message";
                 botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
                 chatBox.appendChild(botFollowUp);
 
                 showMyths();
-
             }, typingTime);
         }
 
