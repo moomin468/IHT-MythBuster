@@ -33,7 +33,7 @@
             overflow: hidden;
         }
         .chat-header {
-            font-size: 24px;
+            font-size: 18px; /* Increased font size */
             font-weight: bold;
             text-align: center;
             padding-bottom: 15px;
@@ -109,14 +109,17 @@
     <div class="chat-container">
         <div class="chat-header">Inheritance Tax MythBuster</div>
         <button class="end-session" onclick="resetChat()">End Session</button>
-        <div class="chat-box" id="chat-box">
-            <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
-            <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>
-            <div id="options"></div>
-        </div>
+        <div class="chat-box" id="chat-box"></div>
     </div>
 
     <script>
+        function initializeChat() {
+            document.getElementById("chat-box").innerHTML = `
+                <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster!</b> I’m here to help you separate fact from fiction when it comes to inheritance tax. Select a myth below, and I’ll provide you with accurate information.</div>
+            `;
+            showMyths();
+        }
+
         function showMyths() {
             let chatBox = document.getElementById("chat-box");
             let optionsDiv = document.createElement("div");
@@ -180,11 +183,6 @@
                 botMessage.innerHTML = response;
                 chatBox.appendChild(botMessage);
 
-                let botFollowUp = document.createElement("div");
-                botFollowUp.className = "bot-message message";
-                botFollowUp.innerHTML = "💭 Got another myth you'd like to check? Choose from the options below!";
-                chatBox.appendChild(botFollowUp);
-
                 showMyths();
             }, typingTime);
         }
@@ -197,11 +195,10 @@
         }
 
         function resetChat() {
-            document.getElementById("chat-box").innerHTML = "";
-            showMyths();
+            initializeChat(); // Reset chat completely to the original state
         }
 
-        showMyths();
+        initializeChat();
     </script>
 
 </body>
