@@ -4,34 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inheritance Tax MythBuster</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'League Spartan', sans-serif;
+        }
+        body, html {
+            height: 100%;
+            width: 100%;
             background-color: #f4f4f9;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
         }
         .chat-container {
             width: 100%;
-            max-width: 750px;
+            height: 100vh; /* Full screen height */
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 10px;
+            border-radius: 0; /* Removed border-radius for full-page fit */
             padding: 20px;
             display: flex;
             flex-direction: column;
             position: relative;
+            overflow: hidden;
         }
         .chat-header {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
             text-align: center;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #ddd;
-            color: black; /* Changed to black */
+            color: black;
         }
         .end-session {
             position: absolute;
@@ -40,13 +47,13 @@
             background-color: red;
             color: white;
             border: none;
-            padding: 6px 12px;
+            padding: 8px 15px;
             cursor: pointer;
             border-radius: 5px;
             font-size: 14px;
         }
         .chat-box {
-            height: 500px;
+            flex: 1;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -54,11 +61,12 @@
             gap: 10px;
         }
         .message {
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             max-width: 90%;
             line-height: 1.6;
             cursor: pointer;
+            font-size: 16px;
         }
         .user-message {
             background-color: #007bff;
@@ -77,8 +85,7 @@
             background-color: #e5e5ea;
             border: 1px solid #d1d1d1;
             transition: background 0.3s;
-            padding: 10px;
-            margin-bottom: 6px;
+            padding: 12px;
             cursor: pointer;
             border-radius: 8px;
         }
@@ -190,9 +197,7 @@
         }
 
         function resetChat() {
-            document.getElementById("chat-box").innerHTML = `
-                <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster</b>. Our goal is to help you understand the facts behind common misconceptions about inheritance tax.</div>
-                <div class="bot-message message">Please select a myth from the options below, and I'll provide you with accurate information.</div>`;
+            document.getElementById("chat-box").innerHTML = "";
             showMyths();
         }
 
