@@ -15,7 +15,7 @@
         body, html {
             height: 100%;
             width: 100%;
-            background-color: #f4f4f9; /* Light gray background */
+            background-color: #f8f9fa; /* Light gray background */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,7 +33,7 @@
             overflow: hidden;
         }
         .chat-header {
-            font-size: 18px;
+            font-size: 22px; /* Increased font size */
             font-weight: bold;
             text-align: center;
             padding-bottom: 15px;
@@ -179,6 +179,13 @@
                 chatBox.appendChild(botMessage);
                 showMyths();
             }, typingTime);
+        }
+
+        function autoScroll() {
+            let chatBox = document.getElementById("chat-box");
+            setTimeout(() => {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100);
         }
 
         function resetChat() {
