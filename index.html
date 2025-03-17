@@ -1,206 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inheritance Tax MythBuster</title>
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'League Spartan', sans-serif;
-        }
-        body, html {
-            height: 100%;
-            width: 100%;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .chat-container {
-            width: 100%;
-            height: 100vh;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 10px; /* Added rounded corners */
-            border: 2px solid #ccc; /* Added boundary around chatbot */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-        .chat-header {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ddd;
-            color: black;
-        }
-        .end-session {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .chat-box {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 10px;
-            gap: 10px;
-        }
-        .message {
-            padding: 14px;
-            border-radius: 8px;
-            max-width: 90%;
-            line-height: 1.6;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .user-message {
-            background-color: #007bff;
-            color: white;
-            align-self: flex-end;
-            text-align: right;
-            cursor: default;
-        }
-        .bot-message {
-            background-color: #e5e5ea;
-            color: black;
-            align-self: flex-start;
-            text-align: left;
-        }
-        .selectable {
-            background-color: #e5e5ea;
-            border: 1px solid #d1d1d1;
-            transition: background 0.3s;
-            padding: 12px;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-        .selectable:hover {
-            background-color: #d1d1d1;
-        }
-        .typing-indicator {
-            font-style: italic;
-            color: gray;
-            animation: blink 1.2s infinite;
-        }
-        @keyframes blink {
-            0% { opacity: 0.2; }
-            50% { opacity: 1; }
-            100% { opacity: 0.2; }
-        }
-    </style>
-</head>
-<body>
+<script>
+    function initializeChat() {
+        document.getElementById("chat-box").innerHTML = `
+            <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster!</b> I’m here to help you separate fact from fiction when it comes to inheritance tax. Select a myth below, and I’ll provide you with accurate information.</div>
+        `;
+        showMyths();
+    }
 
-    <div class="chat-container">
-        <div class="chat-header">Inheritance Tax MythBuster</div>
-        <button class="end-session" onclick="resetChat()">End Session</button>
-        <div class="chat-box" id="chat-box"></div>
-    </div>
+    function showMyths() {
+        let chatBox = document.getElementById("chat-box");
+        let optionsDiv = document.createElement("div");
+        optionsDiv.id = "options";
+        chatBox.appendChild(optionsDiv);
 
-    <script>
-        function initializeChat() {
-            document.getElementById("chat-box").innerHTML = `
-                <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster!</b> I’m here to help you separate fact from fiction when it comes to inheritance tax. Select a myth below, and I’ll provide you with accurate information.</div>
-            `;
+        let myths = [
+            "📌 Myth: Surviving the 'seven-year clock' is all I have to worry about.",
+            "📌 Myth: I have to wait seven years for a gift to be outside my estate for IHT.",
+            "📌 Myth: My spouse or civil partner is always exempt from IHT.",
+            "📌 Myth: Inheritance tax planning is a one-time activity.",
+            "📌 Myth: Inheritance tax planning is only about property."
+        ];
+
+        myths.forEach((myth, index) => {
+            let mythOption = document.createElement("div");
+            mythOption.className = "bot-message message selectable";
+            mythOption.innerHTML = myth;
+            mythOption.onclick = function() { selectMyth(index + 1, myth); };
+            optionsDiv.appendChild(mythOption);
+        });
+
+        autoScroll();
+    }
+
+    function selectMyth(option, selectedMyth) {
+        let chatBox = document.getElementById("chat-box");
+
+        let userMessage = document.createElement("div");
+        userMessage.className = "user-message message";
+        userMessage.innerHTML = selectedMyth;
+        chatBox.appendChild(userMessage);
+
+        let response = "";
+        let typingTime = 2000;
+
+        if (option === 1) {
+            response = "✅ <b>Fact:</b> Surviving seven years can make a gift IHT-exempt, but other taxes like Capital Gains Tax (CGT) may still apply. <br><br>" +
+                       "If you gift property, shares, or other chargeable assets, you may face CGT if their value has increased since you acquired them, potentially creating an immediate tax liability. " +
+                       "Additionally, anti-avoidance rules prevent you from benefiting from gifted assets. If you still use or control them, they may still count as part of your estate.<br><br>" +
+                       "🔹 <b>What you can do:</b> Gifting can still be tax-efficient, but **proper planning** is crucial. Consider the **CGT implications**, ensure you **fully give up control**, and be aware of **reporting requirements**.";
+        } 
+        else if (option === 2) {
+            response = "✅ <b>Fact:</b> While most gifts require a seven-year wait to become IHT-free, not all do. Some gifts are **immediately exempt**, depending on the circumstances. <br><br>" +
+                       "Gifts to **UK charities** are fully exempt from IHT, and regular **gifts out of income** can also be immediately tax-free, provided they meet specific conditions.<br><br>" +
+                       "🔹 <b>What you can do:</b> Understanding IHT exemptions can help reduce your estate’s tax burden. Be aware of the rules, document regular gifts properly, and seek guidance on maximizing tax-efficient transfers.";
+        } 
+        else if (option === 3) {
+            response = "✅ <b>Fact:</b> While gifts between spouses and civil partners are **generally IHT-free**, this only applies if both are **UK-domiciled**. If one partner is non-UK domiciled, the exemption may be **limited**.<br><br>" +
+                       "Additionally, the **surviving spouse can inherit unused allowances**, including the **nil-rate band** and **residence nil-rate band**, potentially increasing their tax-free threshold.<br><br>" +
+                       "🔹 <b>What you can do:</b> If your spouse is non-UK domiciled, consider electing UK domicile for tax purposes or using other estate planning strategies to avoid unexpected IHT liabilities.";
+        } 
+        else if (option === 4) {
+            response = "✅ <b>Fact:</b> IHT planning isn’t a **one-time event**—it’s an **ongoing process**. Tax laws change, personal circumstances shift, and financial landscapes evolve, requiring periodic adjustments.<br><br>" +
+                       "🔹 <b>What you can do:</b> Regularly review your estate plan to ensure it remains tax-efficient and compliant with current regulations. Staying proactive helps avoid unnecessary tax burdens and keeps your plan effective.";
+        } 
+        else if (option === 5) {
+            response = "✅ <b>Fact:</b> While property is a **key part** of IHT planning, **other assets like investments, savings, and personal belongings** are also subject to tax.<br><br>" +
+                       "🔹 <b>What you can do:</b> Take a **holistic approach** to estate planning, ensuring all asset types are accounted for. A well-rounded strategy can help minimize tax liabilities across your entire estate.";
+        }
+
+        let typingIndicator = document.createElement("div");
+        typingIndicator.className = "bot-message message typing-indicator";
+        typingIndicator.innerHTML = "MythBuster is typing...";
+        chatBox.appendChild(typingIndicator);
+
+        autoScroll();
+
+        setTimeout(() => {
+            typingIndicator.remove();
+
+            let botMessage = document.createElement("div");
+            botMessage.className = "bot-message message";
+            botMessage.innerHTML = response;
+            chatBox.appendChild(botMessage);
+
             showMyths();
-        }
+        }, typingTime);
+    }
 
-        function showMyths() {
-            let chatBox = document.getElementById("chat-box");
-            let optionsDiv = document.createElement("div");
-            optionsDiv.id = "options";
-            chatBox.appendChild(optionsDiv);
+    function autoScroll() {
+        let chatBox = document.getElementById("chat-box");
+        setTimeout(() => {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }, 100);
+    }
 
-            let myths = [
-                "📌 Myth: I won’t pay any IHT on my business or company.",
-                "📌 Myth: Surviving the 'seven-year clock' is all I have to worry about.",
-                "📌 Myth: I have to wait seven years for a gift to be outside my estate for IHT."
-            ];
-
-            myths.forEach((myth, index) => {
-                let mythOption = document.createElement("div");
-                mythOption.className = "bot-message message selectable";
-                mythOption.innerHTML = myth;
-                mythOption.onclick = function() { selectMyth(index + 1, myth); };
-                optionsDiv.appendChild(mythOption);
-            });
-
-            autoScroll();
-        }
-
-        function selectMyth(option, selectedMyth) {
-            let chatBox = document.getElementById("chat-box");
-
-            // Add user message (selected myth)
-            let userMessage = document.createElement("div");
-            userMessage.className = "user-message message";
-            userMessage.innerHTML = selectedMyth;
-            chatBox.appendChild(userMessage);
-
-            let response = "";
-            let typingTime = 2000;
-
-            if (option === 1) {
-                response = "✅ <b>Fact:</b> Unless Business Relief is available in full, the value (or part) of a business can be charged to IHT, creating a significant liability.<br><br>" +
-                           "For example, if you have grown a £50m business that you would like to transfer either as part of retirement or estate planning and have not made use of Business Relief, this could create a 40% IHT liability of £20m.";
-            } 
-            else if (option === 2) {
-                response = "✅ <b>Fact:</b> Gifts of chargeable assets (such as shares and property) during your lifetime are also exposed to capital gains tax (CGT), risking a significant tax charge if the value of the asset has risen since you acquired it.<br><br>" +
-                           "There are also anti-avoidance provisions to prevent you from retaining benefits from gifted assets, or assets acquired via gifts of cash, so lifetime gifts can require careful thought to be an important part of IHT planning.";
-            } 
-            else if (option === 3) {
-                response = "✅ <b>Fact:</b> Gifts of capital between you and another person are deemed potentially exempt transfers (PET) for IHT and do require you to survive seven years from the date of the gift.<br><br>" +
-                           "However, not all gifts are PET, and you may have scope to make immediately exempt gifts if that is appropriate for your situation and wishes.";
-            }
-
-            let typingIndicator = document.createElement("div");
-            typingIndicator.className = "bot-message message typing-indicator";
-            typingIndicator.innerHTML = "MythBuster is typing...";
-            chatBox.appendChild(typingIndicator);
-
-            autoScroll();
-
-            setTimeout(() => {
-                typingIndicator.remove();
-
-                let botMessage = document.createElement("div");
-                botMessage.className = "bot-message message";
-                botMessage.innerHTML = response;
-                chatBox.appendChild(botMessage);
-
-                showMyths();
-            }, typingTime);
-        }
-
-        function autoScroll() {
-            let chatBox = document.getElementById("chat-box");
-            setTimeout(() => {
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 100);
-        }
-
-        function resetChat() {
-            initializeChat(); // Reset chat completely to the original state
-        }
-
+    function resetChat() {
         initializeChat();
-    </script>
+    }
 
-</body>
-</html>
+    initializeChat();
+</script>
