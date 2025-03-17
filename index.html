@@ -15,7 +15,7 @@
         body, html {
             height: 100%;
             width: 100%;
-            background-color: white; /* Changed background to white */
+            background-color: white; /* Background changed to white */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +23,7 @@
         .chat-container {
             width: 100%;
             max-width: 700px;
-            height: 85vh; /* Increased height slightly to reduce scrolling */
+            height: 85vh; /* Increased height */
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
@@ -119,7 +119,7 @@
             initializeChat();
         });
 
-        let myths = [
+        let allMyths = [
             "1️⃣ Myth: Surviving the 'seven-year clock' is all I have to worry about.",
             "2️⃣ Myth: I have to wait seven years for a gift to be outside my estate for IHT.",
             "3️⃣ Myth: I won’t pay any IHT on my business or company.",
@@ -128,7 +128,7 @@
             "6️⃣ Myth: Inheritance tax planning is only about property."
         ];
 
-        let responses = [
+        let allResponses = [
             "✅ Fact: Surviving seven years can make a gift IHT-exempt, but Capital Gains Tax (CGT) may still apply. If the gifted asset has risen in value, you might face a CGT bill before IHT even comes into play. There are also anti-avoidance rules that prevent you from benefiting from gifted assets, meaning careful planning is key.",
             "✅ Fact: While many gifts require a seven-year wait to become IHT-free, some are immediately exempt. Gifts to UK charities, gifts out of regular income, and certain exemptions mean you don’t always have to wait.",
             "✅ Fact: Business Relief may reduce or eliminate IHT on a business, but it is not automatic. The business must meet strict trading requirements, and certain assets may still be taxable. If Business Relief is unavailable or limited, a significant IHT liability could arise.",
@@ -137,11 +137,17 @@
             "✅ Fact: While property plays a significant role in IHT, other assets like investments, savings, and personal belongings are also taxed. A holistic approach ensures all assets are considered in your estate planning."
         ];
 
+        let myths, responses; // Will store the current myths and responses
+
         function initializeChat() {
+            myths = [...allMyths]; // Reset myths
+            responses = [...allResponses]; // Reset responses
+
             let chatBox = document.getElementById("chat-box");
             chatBox.innerHTML = `
                 <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster!</b> I’m here to help you separate fact from fiction when it comes to inheritance tax. Select a myth below, and I’ll provide you with accurate information.</div>
             `;
+
             showMyths();
         }
 
@@ -187,8 +193,8 @@
                 botMessage.innerHTML = responses[index];
                 chatBox.appendChild(botMessage);
 
-                myths.splice(index, 1); // Remove selected myth
-                responses.splice(index, 1); // Remove corresponding response
+                myths.splice(index, 1);
+                responses.splice(index, 1);
 
                 if (myths.length > 0) {
                     showMyths();
@@ -204,7 +210,6 @@
         }
 
         function resetChat() {
-            myths = [...myths];
             initializeChat();
         }
     </script>
