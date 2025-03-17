@@ -137,11 +137,11 @@
             "✅ Fact: While property plays a significant role in IHT, other assets like investments, savings, and personal belongings are also taxed. A holistic approach ensures all assets are considered in your estate planning."
         ];
 
-        let myths, responses; // Will store the current myths and responses
+        let myths, responses;
 
         function initializeChat() {
-            myths = [...allMyths]; // Reset myths
-            responses = [...allResponses]; // Reset responses
+            myths = [...allMyths]; 
+            responses = [...allResponses]; 
 
             let chatBox = document.getElementById("chat-box");
             chatBox.innerHTML = `
@@ -156,6 +156,13 @@
             let optionsDiv = document.createElement("div");
             optionsDiv.id = "options";
             chatBox.appendChild(optionsDiv);
+
+            if (myths.length > 0) {
+                let promptMessage = document.createElement("div");
+                promptMessage.className = "bot-message message";
+                promptMessage.innerHTML = "🤔 Do you want to check any other myths?";
+                chatBox.appendChild(promptMessage);
+            }
 
             myths.forEach((myth, index) => {
                 let mythOption = document.createElement("div");
@@ -196,10 +203,12 @@
                 myths.splice(index, 1);
                 responses.splice(index, 1);
 
-                if (myths.length > 0) {
-                    showMyths();
-                }
+                showMyths();
             }, 2000);
+        }
+
+        function resetChat() {
+            initializeChat();
         }
 
         function autoScroll() {
@@ -207,10 +216,6 @@
             setTimeout(() => {
                 chatBox.scrollTop = chatBox.scrollHeight;
             }, 100);
-        }
-
-        function resetChat() {
-            initializeChat();
         }
     </script>
 
