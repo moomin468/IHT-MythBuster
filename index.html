@@ -15,7 +15,7 @@
         body, html {
             height: 100%;
             width: 100%;
-            background-color: white; /* Background changed to white */
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +23,7 @@
         .chat-container {
             width: 100%;
             max-width: 700px;
-            height: 85vh; /* Increased height */
+            height: 85vh;
             background: white;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             border-radius: 10px;
@@ -148,16 +148,16 @@
                 <div class="bot-message message">Welcome to the <b>Inheritance Tax MythBuster!</b> I’m here to help you separate fact from fiction when it comes to inheritance tax. Select a myth below, and I’ll provide you with accurate information.</div>
             `;
 
-            showMyths();
+            showMyths(false); // Default screen, no prompt message
         }
 
-        function showMyths() {
+        function showMyths(showPrompt) {
             let chatBox = document.getElementById("chat-box");
             let optionsDiv = document.createElement("div");
             optionsDiv.id = "options";
             chatBox.appendChild(optionsDiv);
 
-            if (myths.length > 0) {
+            if (showPrompt && myths.length > 0) {
                 let promptMessage = document.createElement("div");
                 promptMessage.className = "bot-message message";
                 promptMessage.innerHTML = "🤔 Do you want to check any other myths?";
@@ -203,19 +203,12 @@
                 myths.splice(index, 1);
                 responses.splice(index, 1);
 
-                showMyths();
+                showMyths(true); // Now show the prompt
             }, 2000);
         }
 
         function resetChat() {
             initializeChat();
-        }
-
-        function autoScroll() {
-            let chatBox = document.getElementById("chat-box");
-            setTimeout(() => {
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 100);
         }
     </script>
 
